@@ -7,8 +7,9 @@ class Game extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            fieldSize: props.fieldSize,
             history: [{
-                squares: Array(9).fill(null)
+                squares: Array(props.fieldSize ** 2).fill(null)
             }],
             stepNumber: 0,
             xIsNext: true,
@@ -64,6 +65,7 @@ class Game extends React.Component {
             <div className="game">
                 <div className="game-board">
                     <Board
+                        fieldSize={this.state.fieldSize}
                         squares={current.squares}
                         onClick={(i) => this.handleClick(i)}
                     />

@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
 
 import Game from './Game/Game.js';
@@ -7,7 +7,16 @@ import React from 'react';
 function App() {
   return (
     <div>
-      <Game/>
+      <Start />
+    </div>
+  );
+}
+
+function Start() 
+{
+  return(
+    <div>
+      <Game fieldSize={9}/>
     </div>
   );
 }
