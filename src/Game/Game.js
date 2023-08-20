@@ -1,12 +1,15 @@
 import React from 'react'
 import Board from "./Board";
 import './../App.css'
-import calculateWinner from './CalculateWiner';
+import calculateWinner from './calculateWinner';
+import getLines from './getWinnerLines'
+
 
 class Game extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            winnerLine: getLines(props.fieldSize),
             fieldSize: props.fieldSize,
             history: [{
                 squares: Array(props.fieldSize ** 2).fill(null)
@@ -20,7 +23,7 @@ class Game extends React.Component {
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
-        if (calculateWinner(squares) || squares[i]) {
+        if (calculateWinner(squares, this.state.winnerLine) || squares[i]) {
             return;
         }
         squares[i] = this.state.xIsNext ? 'X' : 'O';
@@ -43,7 +46,7 @@ class Game extends React.Component {
     render() {
         const history = this.state.history;
         const current = history[this.state.stepNumber];
-        const winner = calculateWinner(current.squares);
+        const winner = calculateWinner(current.squares, this.state.winnerLine);
 
         const moves = history.map((step, move) => {
             const dev = move ? `Go to move #${move}`: `Go to gamestart`;
